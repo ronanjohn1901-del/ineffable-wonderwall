@@ -1,0 +1,2990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050505">
+<title>A Thank You — Teacher's Day</title>
+
+<style>
+/* =========================================================
+   BLACK × PINK TEACHER'S DAY WEBSITE
+   ========================================================= */
+
+:root {
+    --primary: #ff4f9a;
+    --secondary: #b8326f;
+    --accent: #ff9fc8;
+
+    --background: #050505;
+    --surface: #0d0d0d;
+    --surface-2: #141414;
+    --surface-3: #1b1b1b;
+
+    --heading: #ffffff;
+    --text: #d8d8d8;
+    --muted: #8f8f8f;
+    --border: rgba(255, 79, 154, 0.18);
+
+    --shadow: 0 20px 60px rgba(0,0,0,.45);
+
+    --radius: 22px;
+
+    --heading-font: Georgia, "Times New Roman", serif;
+    --body-font: Inter, Arial, sans-serif;
+
+    --animation-speed: 0.7s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--background);
+    color: var(--text);
+    font-family: var(--body-font);
+    overflow-x: hidden;
+    cursor: default;
+}
+
+body::selection {
+    background: var(--primary);
+    color: #fff;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* =========================================================
+   FLOWER CURSOR & TRAIL STYLES
+   ========================================================= */
+
+#flower-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out;
+}
+
+#flower-cursor .petal {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--primary);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 8px rgba(255, 79, 154, 0.6);
+}
+
+/* Position petals in a circular flower shape */
+#flower-cursor .petal-1 { transform: translate(-50%, -150%); }
+#flower-cursor .petal-2 { transform: translate(30%, -90%); }
+#flower-cursor .petal-3 { transform: translate(-130%, -90%); }
+#flower-cursor .petal-4 { transform: translate(60%, -10%); }
+#flower-cursor .petal-5 { transform: translate(-160%, -10%); }
+
+#flower-cursor .flower-center {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.trail-petal {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: var(--primary);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.8;
+    transform: translate(-50%, -50%);
+    animation: fadeOutTrail 0.6s forwards linear;
+}
+
+@keyframes fadeOutTrail {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(0.2);
+        opacity: 0;
+    }
+}
+
+/* Hide custom cursor on touch devices */
+@media (pointer: coarse) {
+    #flower-cursor {
+        display: none;
+    }
+}
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+.container {
+    width: min(1180px, calc(100% - 40px));
+    margin: auto;
+}
+
+section {
+    position: relative;
+    padding: 120px 0;
+}
+
+.section-label {
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.section-title {
+    font-family: var(--heading-font);
+    color: var(--heading);
+    font-size: clamp(42px, 6vw, 76px);
+    line-height: 1;
+    font-weight: 400;
+    max-width: 900px;
+}
+
+.section-description {
+    max-width: 680px;
+    margin-top: 25px;
+    color: var(--muted);
+    line-height: 1.9;
+    font-size: 16px;
+}
+
+.pink {
+    color: var(--primary);
+}
+
+.btn {
+    border: 1px solid var(--primary);
+    background: var(--primary);
+    color: white;
+    padding: 15px 27px;
+    border-radius: 100px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: .3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 35px rgba(255,79,154,.25);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--primary);
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity .9s ease, transform .9s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 20px 0;
+    background: rgba(5,5,5,.72);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid transparent;
+    transition: .3s ease;
+}
+
+.navbar.scrolled {
+    border-color: var(--border);
+    padding: 14px 0;
+}
+
+.nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: var(--heading-font);
+    font-size: 24px;
+    color: white;
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 27px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: #aaa;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: .3s;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.menu-btn {
+    display: none;
+    border: 0;
+    background: transparent;
+    color: white;
+    font-size: 25px;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding-top: 100px;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    right: -250px;
+    top: 5%;
+    background: radial-gradient(circle, rgba(255,79,154,.17), transparent 65%);
+    filter: blur(20px);
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    left: -200px;
+    bottom: -150px;
+    background: radial-gradient(circle, rgba(184,50,111,.14), transparent 65%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
+}
+
+.hero-small {
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 11px;
+    margin-bottom: 25px;
+}
+
+.hero-title {
+    font-family: var(--heading-font);
+    color: white;
+    font-size: clamp(55px, 9vw, 120px);
+    font-weight: 400;
+    line-height: .9;
+}
+
+.hero-title em {
+    color: var(--primary);
+    font-style: italic;
+}
+
+.hero-subtitle {
+    margin-top: 35px;
+    max-width: 650px;
+    color: #aaa;
+    line-height: 1.8;
+    font-size: 17px;
+}
+
+.hero-name {
+    margin-top: 35px;
+    font-family: var(--heading-font);
+    color: white;
+    font-size: clamp(28px, 4vw, 48px);
+}
+
+.hero-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 35px;
+    flex-wrap: wrap;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #666;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.scroll-indicator::after {
+    content: "";
+    display: block;
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(var(--primary), transparent);
+    margin: 12px auto 0;
+}
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.intro {
+    background: var(--surface);
+}
+
+.intro-box {
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+}
+
+.intro-text {
+    margin-top: 35px;
+    font-family: var(--heading-font);
+    font-size: clamp(27px, 4vw, 52px);
+    color: white;
+    line-height: 1.35;
+}
+
+.intro-text span {
+    color: var(--primary);
+}
+
+/* =========================================================
+   TEACHER
+   ========================================================= */
+
+.teacher-grid {
+    margin-top: 70px;
+    display: grid;
+    grid-template-columns: .85fr 1.15fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.teacher-photo {
+    aspect-ratio: 4/5;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+}
+
+.teacher-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.teacher-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    font-family: var(--heading-font);
+    font-size: 25px;
+}
+
+.teacher-name {
+    color: white;
+    font-family: var(--heading-font);
+    font-size: clamp(38px,5vw,65px);
+}
+
+.teacher-role {
+    color: var(--primary);
+    margin-top: 10px;
+}
+
+.teacher-bio {
+    margin-top: 30px;
+    color: #aaa;
+    line-height: 1.9;
+}
+
+.teacher-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.meta-pill {
+    border: 1px solid var(--border);
+    color: #ccc;
+    padding: 9px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+}
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 60px;
+}
+
+.card {
+    background: linear-gradient(145deg, var(--surface-2), var(--surface));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    min-height: 220px;
+    position: relative;
+    overflow: hidden;
+    transition: .4s ease;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    top: -70px;
+    right: -70px;
+    background: var(--primary);
+    opacity: .08;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255,79,154,.5);
+}
+
+.card:hover::before {
+    transform: scale(1.7);
+}
+
+.card-number {
+    color: var(--primary);
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.card h3 {
+    margin-top: 30px;
+    font-family: var(--heading-font);
+    color: white;
+    font-size: 27px;
+    font-weight: 400;
+}
+
+.card p {
+    margin-top: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.click-card {
+    cursor: pointer;
+}
+
+/* =========================================================
+   PERSONAL DETAILS
+   ========================================================= */
+
+.personal {
+    background: var(--surface);
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 15px;
+    margin-top: 60px;
+}
+
+.detail {
+    padding: 30px;
+    border-left: 2px solid var(--primary);
+    background: var(--surface-2);
+    transition: .3s;
+}
+
+.detail:hover {
+    transform: translateX(6px);
+}
+
+.detail small {
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.detail h3 {
+    color: white;
+    margin-top: 10px;
+    font-family: var(--heading-font);
+    font-size: 25px;
+}
+
+/* =========================================================
+   LETTER
+   ========================================================= */
+
+.letter-section {
+    text-align: center;
+    overflow: hidden;
+}
+
+.envelope-container {
+    margin: 60px auto 0;
+    width: min(600px, 100%);
+    height: 350px;
+    position: relative;
+    perspective: 1200px;
+}
+
+.envelope {
+    width: 100%;
+    height: 260px;
+    position: absolute;
+    bottom: 0;
+    background: #171717;
+    border: 1px solid rgba(255,79,154,.35);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.envelope::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 49%, rgba(255,79,154,.12) 50%, transparent 51%);
+}
+
+.flap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 140px;
+    background: #202020;
+    clip-path: polygon(0 0,100% 0,50% 100%);
+    transform-origin: top;
+    transition: transform 1s ease;
+    z-index: 5;
+    border-top: 1px solid var(--border);
+}
+
+.letter-paper {
+    position: absolute;
+    width: 90%;
+    left: 5%;
+    bottom: 20px;
+    height: 290px;
+    background: #f7e9ef;
+    color: #222;
+    padding: 35px;
+    text-align: left;
+    transition: transform 1.2s ease, bottom 1.2s ease;
+    transform: translateY(120px);
+    z-index: 2;
+    overflow: auto;
+}
+
+.letter-paper h3 {
+    font-family: Georgia, serif;
+    margin-bottom: 15px;
+}
+
+.letter-paper p {
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
+
+.envelope.open .letter-paper {
+    transform: translateY(-150px);
+    bottom: 40px;
+}
+
+/* =========================================================
+   QUOTES
+   ========================================================= */
+
+.quotes {
+    background: var(--surface);
+    text-align: center;
+}
+
+.quote-box {
+    margin: 60px auto 30px;
+    max-width: 850px;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.quote {
+    font-family: var(--heading-font);
+    color: white;
+    font-size: clamp(28px,4vw,50px);
+    line-height: 1.35;
+    transition: opacity .3s;
+}
+
+.quote-author {
+    color: var(--primary);
+    margin-top: 20px;
+}
+
+/* =========================================================
+   NEVER SAID
+   ========================================================= */
+
+.unsaid-grid {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 18px;
+}
+
+.unsaid {
+    background: #0b0b0b;
+    border: 1px solid var(--border);
+    padding: 35px;
+    min-height: 180px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: .3s;
+}
+
+.unsaid:hover {
+    background: #111;
+    transform: translateY(-5px);
+}
+
+.unsaid span {
+    color: var(--primary);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.unsaid h3 {
+    margin-top: 25px;
+    color: white;
+    font-family: var(--heading-font);
+    font-size: 25px;
+}
+
+/* =========================================================
+   MESSAGES
+   ========================================================= */
+
+.messages {
+    background: var(--surface);
+}
+
+.message-grid {
+    margin-top: 60px;
+    columns: 3 250px;
+    column-gap: 18px;
+}
+
+.message {
+    break-inside: avoid;
+    margin-bottom: 18px;
+    padding: 28px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+}
+
+.message p {
+    color: #ddd;
+    line-height: 1.8;
+}
+
+.message strong {
+    display: block;
+    color: var(--primary);
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+/* =========================================================
+   MAIN THANK YOU
+   ========================================================= */
+
+.main-thankyou {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.thankyou-content {
+    max-width: 900px;
+}
+
+.thankyou-message {
+    margin-top: 40px;
+    font-family: var(--heading-font);
+    color: white;
+    font-size: clamp(28px,4vw,55px);
+    line-height: 1.4;
+}
+
+.thankyou-message::first-letter {
+    color: var(--primary);
+}
+
+/* =========================================================
+   FINAL REVEAL
+   ========================================================= */
+
+.final {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #020202;
+    overflow: hidden;
+}
+
+.final-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255,79,154,.18), transparent 65%);
+    opacity: 0;
+    transition: 2s ease;
+}
+
+.final.revealed .final-glow {
+    opacity: 1;
+    transform: scale(2);
+}
+
+.final-content {
+    position: relative;
+    z-index: 2;
+}
+
+.final-small {
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 11px;
+}
+
+.final-title {
+    margin-top: 25px;
+    font-family: var(--heading-font);
+    font-size: clamp(55px,10vw,130px);
+    color: white;
+    font-weight: 400;
+}
+
+.final-message {
+    margin-top: 25px;
+    color: #aaa;
+    max-width: 650px;
+    line-height: 1.8;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 1s ease 1s;
+}
+
+.final.revealed .final-message {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.final-name {
+    margin-top: 30px;
+    color: var(--primary);
+    font-family: var(--heading-font);
+    font-size: 30px;
+    opacity: 0;
+    transition: 1s ease 1.5s;
+}
+
+.final.revealed .final-name {
+    opacity: 1;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    padding: 50px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+footer p {
+    color: #666;
+    font-size: 12px;
+}
+
+footer span {
+    color: var(--primary);
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(0,0,0,.85);
+    backdrop-filter: blur(15px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-box {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    max-width: 650px;
+    width: 100%;
+    padding: 45px;
+    position: relative;
+    transform: translateY(30px);
+    transition: .3s;
+}
+
+.modal.active .modal-box {
+    transform: translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    border: 0;
+    background: transparent;
+    color: #888;
+    font-size: 25px;
+}
+
+.modal-box h2 {
+    font-family: var(--heading-font);
+    color: white;
+    font-size: 35px;
+}
+
+.modal-box p {
+    color: #aaa;
+    line-height: 1.8;
+    margin-top: 20px;
+}
+
+/* =========================================================
+   ADMIN PANEL
+   ========================================================= */
+
+.admin-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.92);
+    z-index: 3000;
+    display: none;
+    overflow-y: auto;
+}
+
+.admin-overlay.active {
+    display: block;
+}
+
+.admin {
+    width: min(1000px, calc(100% - 30px));
+    margin: 40px auto;
+    background: #101010;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.admin-header h2 {
+    color: white;
+    font-family: var(--heading-font);
+}
+
+.admin-close {
+    background: transparent;
+    border: 1px solid #444;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 50px;
+}
+
+.admin-section {
+    border-top: 1px solid #292929;
+    padding: 30px 0;
+}
+
+.admin-section h3 {
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group.full {
+    grid-column: 1/-1;
+}
+
+.form-group label {
+    display: block;
+    color: #aaa;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    background: #080808;
+    border: 1px solid #333;
+    color: white;
+    padding: 13px;
+    border-radius: 8px;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: var(--primary);
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.color-input {
+    display: flex;
+    gap: 10px;
+}
+
+.color-input input[type="color"] {
+    width: 55px;
+    height: 45px;
+    padding: 3px;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.admin-trigger {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1500;
+    border: 1px solid var(--border);
+    background: rgba(10,10,10,.8);
+    color: var(--primary);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    opacity: .25;
+    transition: .3s;
+}
+
+.admin-trigger:hover {
+    opacity: 1;
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translate(-50%, 100px);
+    background: var(--primary);
+    color: white;
+    padding: 13px 22px;
+    border-radius: 100px;
+    z-index: 5000;
+    font-size: 13px;
+    transition: .4s;
+}
+
+.toast.show {
+    transform: translate(-50%, 0);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width: 900px) {
+
+    .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 20px;
+        right: 20px;
+        background: #0b0b0b;
+        border: 1px solid var(--border);
+        border-radius: 15px;
+        padding: 20px;
+        display: none;
+        flex-direction: column;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .teacher-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .card-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 600px) {
+
+    section {
+        padding: 85px 0;
+    }
+
+    .container {
+        width: min(100% - 28px, 1180px);
+    }
+
+    .hero {
+        min-height: 95vh;
+    }
+
+    .hero-title {
+        font-size: 55px;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .unsaid-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .letter-paper {
+        padding: 25px;
+    }
+
+    .envelope-container {
+        height: 320px;
+    }
+
+    .modal-box {
+        padding: 30px;
+    }
+}
+
+@media(prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     NAVIGATION
+     ========================================================= -->
+
+<nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+
+        <a href="#home" class="logo">
+            A <span>Thank You.</span>
+        </a>
+
+        <button class="menu-btn" id="menuBtn">☰</button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#teacher">The Person</a></li>
+            <li><a href="#lessons">Lessons</a></li>
+            <li><a href="#little">Little Things</a></li>
+            <li><a href="#person">Behind The Lessons</a></li>
+            <li><a href="#letter">The Letter</a></li>
+            <li><a href="#thankyou">Thank You</a></li>
+            <li><a href="#final">Final</a></li>
+        </ul>
+
+    </div>
+</nav>
+
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="hero" id="home">
+
+    <div class="container">
+        <div class="hero-content reveal">
+
+            <div class="hero-small">
+                This isn't really a Teachers' Day website.
+            </div>
+
+            <h1 class="hero-title">
+                It's a<br>
+                <em>thank you.</em>
+            </h1>
+
+            <p class="hero-subtitle" id="heroSubtitle">
+                For everything you taught me —
+                including the things that were never in the syllabus.
+            </p>
+
+            <div class="hero-name" id="teacherHeroName">
+                Your Teacher's Name
+            </div>
+
+            <div class="hero-actions">
+                <button class="btn" onclick="scrollToSection('greeting')">
+                    Let Me Tell You Why
+                </button>
+
+                <button class="btn btn-outline" onclick="openAdmin()">
+                    Admin
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="scroll-indicator">
+        Scroll
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PERSONAL GREETING
+     ========================================================= -->
+
+<section class="intro" id="greeting">
+
+    <div class="container">
+
+        <div class="intro-box reveal">
+
+            <div class="section-label">
+                Before anything else...
+            </div>
+
+            <div class="intro-text" id="greetingText">
+                There are probably a thousand ways to say
+                <span>thank you.</span>
+                I wanted to make something instead.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TEACHER
+     ========================================================= -->
+
+<section id="teacher">
+
+    <div class="container">
+
+        <div class="reveal">
+            <div class="section-label">
+                The person I'm thanking
+            </div>
+
+            <h2 class="section-title">
+                More than<br>
+                <span class="pink">a teacher.</span>
+            </h2>
+        </div>
+
+        <div class="teacher-grid">
+
+            <div class="teacher-photo reveal">
+                <div class="teacher-photo-placeholder">
+                    Your Photograph
+                </div>
+            </div>
+
+            <div class="reveal">
+
+                <h2 class="teacher-name" id="teacherName">
+                    Your Teacher's Name
+                </h2>
+
+                <div class="teacher-role" id="teacherRole">
+                    Teacher • Educator • Mentor
+                </div>
+
+                <p class="teacher-bio" id="teacherBio">
+                    Some people teach a subject.
+                    Some people teach you how to think.
+                    And sometimes, without even realizing it,
+                    a teacher becomes part of the person you eventually become.
+                </p>
+
+                <div class="teacher-meta">
+                    <div class="meta-pill" id="teacherSubject">
+                        Your Subject
+                    </div>
+
+                    <div class="meta-pill" id="teacherYears">
+                        Years of Teaching
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     LESSONS
+     ========================================================= -->
+
+<section id="lessons">
+
+    <div class="container">
+
+        <div class="reveal">
+
+            <div class="section-label">
+                The things that stayed
+            </div>
+
+            <h2 class="section-title">
+                What you<br>
+                <span class="pink">taught me.</span>
+            </h2>
+
+            <p class="section-description">
+                Not every lesson was written on a board.
+                Some of them stayed long after the class ended.
+            </p>
+
+        </div>
+
+        <div class="card-grid">
+
+            <div class="card click-card reveal"
+                 onclick="openModal('Curiosity','You taught me that learning is not simply about knowing the answer. Sometimes the better question is the one nobody thought to ask.')">
+
+                <div class="card-number">01</div>
+                <h3>Curiosity</h3>
+                <p>Some questions are more valuable than answers.</p>
+
+            </div>
+
+            <div class="card click-card reveal"
+                 onclick="openModal('Perspective','You taught me that there is rarely only one way to look at something. Understanding begins when we are willing to see beyond our first assumption.')">
+
+                <div class="card-number">02</div>
+                <h3>Perspective</h3>
+                <p>Learning to see beyond the obvious.</p>
+
+            </div>
+
+            <div class="card click-card reveal"
+                 onclick="openModal('Confidence','Sometimes a teacher believes in a student before the student learns to believe in themselves.')">
+
+                <div class="card-number">03</div>
+                <h3>Confidence</h3>
+                <p>Being reminded that I was capable.</p>
+
+            </div>
+
+            <div class="card click-card reveal"
+                 onclick="openModal('Patience','Some things take time to understand. You made that process feel less like failure and more like learning.')">
+
+                <div class="card-number">04</div>
+                <h3>Patience</h3>
+                <p>Understanding that growth isn't instant.</p>
+
+            </div>
+
+            <div class="card click-card reveal"
+                 onclick="openModal('Discipline','You taught me that wanting something is only the beginning. Showing up consistently is what turns intention into progress.')">
+
+                <div class="card-number">05</div>
+                <h3>Discipline</h3>
+                <p>Doing the work even when it isn't easy.</p>
+
+            </div>
+
+            <div class="card click-card reveal"
+                 onclick="openModal('A lesson beyond the classroom','Some lessons were never part of the syllabus. Somehow, those may be the ones I remember longest.')">
+
+                <div class="card-number">06</div>
+                <h3>Beyond the Classroom</h3>
+                <p>The lessons that weren't written in the textbook.</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     LITTLE THINGS
+     ========================================================= -->
+
+<section class="personal" id="little">
+
+    <div class="container">
+
+        <div class="reveal">
+
+            <div class="section-label">
+                The little things
+            </div>
+
+            <h2 class="section-title">
+                The little things<br>
+                <span class="pink">I remember.</span>
+            </h2>
+
+            <p class="section-description">
+                The things that may have seemed ordinary to you,
+                but somehow became part of what made your classroom yours.
+            </p>
+
+        </div>
+
+        <div class="detail-grid">
+
+            <div class="detail reveal">
+                <small>A phrase</small>
+                <h3>"Your memorable phrase goes here."</h3>
+            </div>
+
+            <div class="detail reveal">
+                <small>A habit</small>
+                <h3>The little classroom habit everyone remembers.</h3>
+            </div>
+
+            <div class="detail reveal">
+                <small>A moment</small>
+                <h3>That one moment nobody expected to remember.</h3>
+            </div>
+
+            <div class="detail reveal">
+                <small>A saying</small>
+                <h3>Something you said that somehow stayed.</h3>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PERSON BEHIND LESSONS
+     ========================================================= -->
+
+<section id="person">
+
+    <div class="container">
+
+        <div class="reveal">
+
+            <div class="section-label">
+                Beyond the classroom
+            </div>
+
+            <h2 class="section-title">
+                The person behind<br>
+                <span class="pink">the lessons.</span>
+            </h2>
+
+        </div>
+
+        <div class="card-grid">
+
+            <div class="card reveal">
+                <div class="card-number">01</div>
+                <h3>What inspires you?</h3>
+                <p>Something personal about what inspires the teacher.</p>
+            </div>
+
+            <div class="card reveal">
+                <div class="card-number">02</div>
+                <h3>Favorite book</h3>
+                <p>A book that says something about who they are.</p>
+            </div>
+
+            <div class="card reveal">
+                <div class="card-number">03</div>
+                <h3>Favorite saying</h3>
+                <p>A phrase that feels unmistakably like them.</p>
+            </div>
+
+            <div class="card reveal">
+                <div class="card-number">04</div>
+                <h3>Something they value</h3>
+                <p>A principle or quality that matters to them.</p>
+            </div>
+
+            <div class="card reveal">
+                <div class="card-number">05</div>
+                <h3>Something students notice</h3>
+                <p>A small detail that makes them recognizable.</p>
+            </div>
+
+            <div class="card reveal">
+                <div class="card-number">06</div>
+                <h3>What makes them unique</h3>
+                <p>The little thing that nobody else could replace.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     LETTER
+     ========================================================= -->
+
+<section class="letter-section" id="letter">
+
+    <div class="container">
+
+        <div class="reveal">
+
+            <div class="section-label">
+                Something personal
+            </div>
+
+            <h2 class="section-title" style="margin:auto">
+                I wanted to say<br>
+                <span class="pink">this properly.</span>
+            </h2>
+
+        </div>
+
+        <div class="envelope-container">
+
+            <div class="envelope" id="envelope">
+
+                <div class="flap"></div>
+
+                <div class="letter-paper">
+
+                    <h3>Dear Teacher,</h3>
+
+                    <p id="letterText">
+                        I don't think "thank you" is always enough.
+
+                        <br><br>
+
+                        Thank you for the lessons, the explanations,
+                        the patience, the conversations, and all the
+                        moments that probably seemed ordinary at the time.
+
+                        <br><br>
+
+                        Some of those moments stayed with me longer
+                        than you probably realize.
+
+                        <br><br>
+
+                        So this isn't just a Teachers' Day message.
+
+                        It is simply me trying to put into words
+                        something that deserves to be said.
+
+                        <br><br>
+
+                        Thank you.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button class="btn" id="letterBtn" onclick="openLetter()">
+            Open The Letter
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     THANK YOU FOR ONE THING
+     ========================================================= -->
+
+<section id="specific-thanks">
+
+    <div class="container">
+
+        <div class="reveal">
+
+            <div class="section-label">
+                If I could thank you for one thing...
+            </div>
+
+            <h2 class="section-title">
+                There isn't<br>
+                <span class="pink">just one.</span>
+            </h2>
+
+        </div>
+
+        <div class="card-grid">
+
+            <div class="card click-card reveal"
+                 onclick="openModal('Thank you for listening','Sometimes being heard matters more than receiving an answer. Thank you for making space for people.')">
+                <div class="card-number">01</div>
+                <h3>Listening</h3>
+                <p>For making people feel heard.</p>
+            </div>
+
+            <div class="card click-card reveal"
+                 onclick="openModal('Thank you for believing','There are moments when someone else\'s belief in you becomes the reason you keep going.')">
+                <div class="card-number">02</div>
+                <h3>Believing</h3>
+                <p>For believing when I wasn't sure.</p>
+            </div>
+
+            <div class="card click-card reveal"
+                 onclick="openModal('Thank you for challenging me','A good teacher does not simply make things easier. They make you capable of doing difficult things.')">
+                <div class="card-number">03</div>
+                <h3>Challenging Me</h3>
+                <p>For expecting more from me.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     QUOTES
+     ========================================================= -->
+
+<section class="quotes" id="quotes">
+
+    <div class="container">
+
+        <div class="reveal">
+
+            <div class="section-label">
+                Words that remind me of you
+            </div>
+
+            <h2 class="section-title" style="margin:auto">
+                Some words<br>
+                <span class="pink">just fit.</span>
+            </h2>
+
+        </div>
+
+        <div class="quote-box">
+
+            <div>
+
+                <div class="quote" id="quoteText">
+                    "The beautiful thing about learning is that nobody can take it away from you."
+                </div>
+
+                <div class="quote-author" id="quoteAuthor">
+                    — B. B. King
+                </div>
+
+            </div>
+
+        </div>
+
+        <button class="btn btn-outline" onclick="nextQuote()">
+            Reveal Another
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     THINGS NEVER SAID
+     ========================================================= -->
+
+<section id="unsaid">
+
+    <div class="container">
+
+        <div class="reveal">
+
+            <div class="section-label">
+                Words left unsaid
+            </div>
+
+            <h2 class="section-title">
+                Things I<br>
+                <span class="pink">never said.</span>
+            </h2>
+
+        </div>
+
+        <div class="unsaid-grid">
+
+            <div class="unsaid reveal"
+                 onclick="openModal('I appreciated it more than I said','There were probably moments when I didn\'t say anything. That doesn\'t mean I didn\'t notice.')">
+
+                <span>01</span>
+                <h3>I appreciated it more than I said.</h3>
+
+            </div>
+
+            <div class="unsaid reveal"
+                 onclick="openModal('I remember more than you think','Some things stay with us quietly. We don\'t always realize their importance until much later.')">
+
+                <span>02</span>
+                <h3>I remember more than you think.</h3>
+
+            </div>
+
+            <div class="unsaid reveal"
+                 onclick="openModal('Some lessons stayed','Not everything I learned from you came from a textbook.')">
+
+                <span>03</span>
+                <h3>Some lessons stayed.</h3>
+
+            </div>
+
+            <div class="unsaid reveal"
+                 onclick="openModal('Thank you for the ordinary moments','The ordinary moments often become the memories we value most.')">
+
+                <span>04</span>
+                <h3>Thank you for the ordinary moments.</h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MESSAGES
+     ========================================================= -->
+
+<section class="messages" id="messages">
+
+    <div class="container">
+
+        <div class="reveal">
+
+            <div class="section-label">
+                A few more voices
+            </div>
+
+            <h2 class="section-title">
+                You're<br>
+                <span class="pink">remembered.</span>
+            </h2>
+
+        </div>
+
+        <div class="message-grid">
+
+            <div class="message reveal">
+                <p>
+                    "A teacher's influence is sometimes impossible
+                    to measure while you're still in the classroom.
+                    You only understand it later."
+                </p>
+                <strong>— A Student</strong>
+            </div>
+
+            <div class="message reveal">
+                <p>
+                    "Thank you for making the classroom feel like
+                    somewhere curiosity was actually welcome."
+                </p>
+                <strong>— A Student</strong>
+            </div>
+
+            <div class="message reveal">
+                <p>
+                    "Some teachers teach subjects.
+                    Some teachers leave an impression.
+                    You managed to do both."
+                </p>
+                <strong>— A Student</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MAIN THANK YOU
+     ========================================================= -->
+
+<section class="main-thankyou" id="thankyou">
+
+    <div class="container">
+
+        <div class="thankyou-content reveal">
+
+            <div class="section-label">
+                And now...
+            </div>
+
+            <h2 class="section-title">
+                So,<br>
+                <span class="pink">thank you.</span>
+            </h2>
+
+            <div class="thankyou-message" id="mainThankYou">
+
+                Thank you for every lesson,
+                every conversation,
+                every correction,
+                every encouragement,
+                and every moment you probably thought was ordinary.
+
+                <br><br>
+
+                I may not remember every chapter,
+                every assignment, or every date.
+
+                But I will remember what it felt like
+                to have a teacher who cared.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FINAL REVEAL
+     ========================================================= -->
+
+<section class="final" id="final">
+
+    <div class="final-glow"></div>
+
+    <div class="final-content">
+
+        <div class="final-small">
+            There is just one thing left to say.
+        </div>
+
+        <h2 class="final-title">
+            Thank You.
+        </h2>
+
+        <button class="btn" id="finalButton" onclick="revealFinal()">
+            Thank You
+        </button>
+
+        <p class="final-message" id="finalMessage">
+            For the lessons that ended with the bell —
+            and the ones that didn't.
+        </p>
+
+        <div class="final-name" id="finalName">
+            Your Teacher's Name
+        </div>
+
+        <div style="margin-top:20px;color:#777;font-size:12px;">
+            Happy Teachers' Day
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+    <div class="container">
+
+        <p>
+            Made with <span>gratitude</span> for one very special teacher.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     MODAL
+     ========================================================= -->
+
+<div class="modal" id="modal">
+
+    <div class="modal-box">
+
+        <button class="modal-close" onclick="closeModal()">×</button>
+
+        <h2 id="modalTitle">
+            Title
+        </h2>
+
+        <p id="modalText">
+            Text
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     ADMIN PANEL
+     ========================================================= -->
+
+<div class="admin-overlay" id="adminOverlay">
+
+    <div class="admin">
+
+        <div class="admin-header">
+
+            <h2>Website Control Center</h2>
+
+            <button class="admin-close" onclick="closeAdmin()">
+                Close
+            </button>
+
+        </div>
+
+
+        <!-- TEACHER -->
+
+        <div class="admin-section">
+
+            <h3>Teacher Profile</h3>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Teacher Name</label>
+                    <input id="adminName" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label>Designation</label>
+                    <input id="adminRole" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label>Subject</label>
+                    <input id="adminSubject" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label>Years Teaching</label>
+                    <input id="adminYears" type="text">
+                </div>
+
+                <div class="form-group full">
+                    <label>Biography</label>
+                    <textarea id="adminBio"></textarea>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- HERO -->
+
+        <div class="admin-section">
+
+            <h3>Hero</h3>
+
+            <div class="form-group">
+                <label>Hero Subtitle</label>
+                <textarea id="adminHero"></textarea>
+            </div>
+
+        </div>
+
+
+        <!-- GREETING -->
+
+        <div class="admin-section">
+
+            <h3>Personal Greeting</h3>
+
+            <div class="form-group">
+                <label>Greeting</label>
+                <textarea id="adminGreeting"></textarea>
+            </div>
+
+        </div>
+
+
+        <!-- LETTER -->
+
+        <div class="admin-section">
+
+            <h3>Personal Letter</h3>
+
+            <div class="form-group">
+                <label>Letter</label>
+                <textarea id="adminLetter"></textarea>
+            </div>
+
+        </div>
+
+
+        <!-- FINAL -->
+
+        <div class="admin-section">
+
+            <h3>Final Message</h3>
+
+            <div class="form-group">
+                <label>Final Message</label>
+                <textarea id="adminFinal"></textarea>
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             ADMIN — BACKGROUND MUSIC
+             ===================================================== -->
+        <div class="admin-section">
+            <h3>Background Music Settings</h3>
+            <div class="form-group full admin-music-field">
+                <label for="admin-music-file">
+                    Background Music File
+                </label>
+
+                <div class="music-admin-box">
+                    <input
+                        type="file"
+                        id="admin-music-file"
+                        accept="audio/mpeg,audio/mp3,audio/wav,audio/ogg,audio/*"
+                    >
+
+                    <div class="music-admin-info" style="margin-top: 10px;">
+                        <strong id="admin-music-name">
+                            No music selected
+                        </strong>
+                        <span id="admin-music-size" style="display: block; color: var(--muted); font-size: 12px;">
+                            Upload an MP3, WAV or OGG file.
+                        </span>
+                    </div>
+
+                    <div class="music-admin-actions" style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+                        <button
+                            type="button"
+                            class="btn btn-outline"
+                            id="admin-music-preview"
+                        >
+                            Preview
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline"
+                            id="admin-music-stop"
+                        >
+                            Stop
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline"
+                            id="admin-music-remove"
+                        >
+                            Remove
+                        </button>
+                    </div>
+
+                    <div class="music-admin-volume" style="margin-top: 20px;">
+                        <label for="admin-music-volume">
+                            Volume: <span id="admin-music-volume-value">35%</span>
+                        </label>
+                        <input
+                            type="range"
+                            id="admin-music-volume"
+                            min="0"
+                            max="1"
+                            step="0.01"
+                            value="0.35"
+                            style="width: 100%; margin-top: 8px;"
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- THEME -->
+
+        <div class="admin-section">
+
+            <h3>Black × Pink Theme</h3>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>Primary Pink</label>
+
+                    <div class="color-input">
+
+                        <input
+                            id="primaryColor"
+                            type="color"
+                            value="#ff4f9a"
+                            onchange="updateTheme()"
+                        >
+
+                        <input
+                            id="primaryHex"
+                            type="text"
+                            value="#ff4f9a"
+                            oninput="updateThemeFromHex()"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Secondary Pink</label>
+
+                    <div class="color-input">
+
+                        <input
+                            id="secondaryColor"
+                            type="color"
+                            value="#b8326f"
+                            onchange="updateTheme()"
+                        >
+
+                        <input
+                            id="secondaryHex"
+                            type="text"
+                            value="#b8326f"
+                            oninput="updateThemeFromHex()"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="admin-actions">
+
+            <button class="btn" onclick="saveAdmin()">
+                Save Changes
+            </button>
+
+            <button class="btn btn-outline" onclick="resetWebsite()">
+                Reset
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ADMIN BUTTON -->
+
+<button class="admin-trigger" onclick="openAdmin()" title="Admin">
+    ⚙
+</button>
+
+<!-- FLOWER CURSOR -->
+<div id="flower-cursor" aria-hidden="true">
+    <span class="petal petal-1"></span>
+    <span class="petal petal-2"></span>
+    <span class="petal petal-3"></span>
+    <span class="petal petal-4"></span>
+    <span class="petal petal-5"></span>
+    <span class="flower-center"></span>
+</div>
+
+<div id="cursor-trail" aria-hidden="true"></div>
+
+
+<!-- =====================================================
+     PUBLIC MUSIC PLAYER
+     ===================================================== -->
+<div
+    class="music-player"
+    id="music-player">
+
+    <button
+        id="music-toggle"
+        class="music-button"
+        aria-label="Play music"
+        type="button"
+    >
+        <span class="music-icon">♫</span>
+    </button>
+
+    <div class="music-info">
+
+        <span class="music-label">
+            A little something for you
+        </span>
+
+        <span
+            class="music-status"
+            id="music-status"
+        >
+            Music Off
+        </span>
+
+    </div>
+
+    <div
+        class="music-bars"
+        id="music-bars"
+        aria-hidden="true"
+    >
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+</div>
+
+<audio
+    id="background-music"
+    loop
+    preload="metadata"></audio>
+
+
+<div class="toast" id="toast">
+    Saved successfully.
+</div>
+
+
+<script>
+
+/* =========================================================
+   WEBSITE DATA
+   ========================================================= */
+
+const defaultData = {
+
+    teacher: {
+        name: "Your Teacher's Name",
+        role: "Teacher • Educator • Mentor",
+        subject: "Your Subject",
+        years: "Years of Teaching",
+        bio: `Some people teach a subject.
+Some people teach you how to think.
+And sometimes, without even realizing it,
+a teacher becomes part of the person you eventually become.`
+    },
+
+    hero: {
+        subtitle:
+        "For everything you taught me — including the things that were never in the syllabus."
+    },
+
+    greeting:
+    "There are probably a thousand ways to say thank you. I wanted to make something instead.",
+
+    letter:
+    `I don't think "thank you" is always enough.
+
+Thank you for the lessons, the explanations, the patience, the conversations, and all the moments that probably seemed ordinary at the time.
+
+Some of those moments stayed with me longer than you probably realize.
+
+So this isn't just a Teachers' Day message.
+
+It is simply me trying to put into words something that deserves to be said.
+
+Thank you.`,
+
+    final:
+    "For the lessons that ended with the bell — and the ones that didn't.",
+
+    theme: {
+        primary: "#ff4f9a",
+        secondary: "#b8326f"
+    }
+
+};
+
+
+/* =========================================================
+   LOAD DATA
+   ========================================================= */
+
+let data =
+    JSON.parse(localStorage.getItem("teacherThankYouData"))
+    || structuredClone(defaultData);
+
+
+/* =========================================================
+   APPLY DATA
+   ========================================================= */
+
+function applyData() {
+
+    document.getElementById("teacherHeroName").textContent =
+        data.teacher.name;
+
+    document.getElementById("teacherName").textContent =
+        data.teacher.name;
+
+    document.getElementById("teacherRole").textContent =
+        data.teacher.role;
+
+    document.getElementById("teacherSubject").textContent =
+        data.teacher.subject;
+
+    document.getElementById("teacherYears").textContent =
+        data.teacher.years;
+
+    document.getElementById("teacherBio").textContent =
+        data.teacher.bio;
+
+    document.getElementById("heroSubtitle").textContent =
+        data.hero.subtitle;
+
+    document.getElementById("greetingText").innerHTML =
+        data.greeting.replace(
+            /thank you/gi,
+            '<span>thank you.</span>'
+        );
+
+    document.getElementById("letterText").innerHTML =
+        data.letter.replace(/\n/g, "<br>");
+
+    document.getElementById("finalMessage").textContent =
+        data.final;
+
+    document.getElementById("finalName").textContent =
+        data.teacher.name;
+
+    document.getElementById("adminName").value =
+        data.teacher.name;
+
+    document.getElementById("adminRole").value =
+        data.teacher.role;
+
+    document.getElementById("adminSubject").value =
+        data.teacher.subject;
+
+    document.getElementById("adminYears").value =
+        data.teacher.years;
+
+    document.getElementById("adminBio").value =
+        data.teacher.bio;
+
+    document.getElementById("adminHero").value =
+        data.hero.subtitle;
+
+    document.getElementById("adminGreeting").value =
+        data.greeting;
+
+    document.getElementById("adminLetter").value =
+        data.letter;
+
+    document.getElementById("adminFinal").value =
+        data.final;
+
+    document.getElementById("primaryColor").value =
+        data.theme.primary;
+
+    document.getElementById("primaryHex").value =
+        data.theme.primary;
+
+    document.getElementById("secondaryColor").value =
+        data.theme.secondary;
+
+    document.getElementById("secondaryHex").value =
+        data.theme.secondary;
+
+    applyTheme();
+
+}
+
+
+/* =========================================================
+   THEME
+   ========================================================= */
+
+function applyTheme() {
+
+    document.documentElement.style.setProperty(
+        "--primary",
+        data.theme.primary
+    );
+
+    document.documentElement.style.setProperty(
+        "--secondary",
+        data.theme.secondary
+    );
+
+}
+
+
+function updateTheme() {
+
+    data.theme.primary =
+        document.getElementById("primaryColor").value;
+
+    data.theme.secondary =
+        document.getElementById("secondaryColor").value;
+
+    document.getElementById("primaryHex").value =
+        data.theme.primary;
+
+    document.getElementById("secondaryHex").value =
+        data.theme.secondary;
+
+    applyTheme();
+
+}
+
+
+function updateThemeFromHex() {
+
+    const primary =
+        document.getElementById("primaryHex").value;
+
+    const secondary =
+        document.getElementById("secondaryHex").value;
+
+    if (/^#[0-9A-F]{6}$/i.test(primary)) {
+
+        data.theme.primary = primary;
+
+        document.getElementById("primaryColor").value =
+            primary;
+
+    }
+
+    if (/^#[0-9A-F]{6}$/i.test(secondary)) {
+
+        data.theme.secondary = secondary;
+
+        document.getElementById("secondaryColor").value =
+            secondary;
+
+    }
+
+    applyTheme();
+
+}
+
+
+/* =========================================================
+   ADMIN
+   ========================================================= */
+
+function openAdmin() {
+
+    document.getElementById("adminOverlay")
+        .classList.add("active");
+
+}
+
+
+function closeAdmin() {
+
+    document.getElementById("adminOverlay")
+        .classList.remove("active");
+
+}
+
+
+function saveAdmin() {
+
+    data.teacher.name =
+        document.getElementById("adminName").value;
+
+    data.teacher.role =
+        document.getElementById("adminRole").value;
+
+    data.teacher.subject =
+        document.getElementById("adminSubject").value;
+
+    data.teacher.years =
+        document.getElementById("adminYears").value;
+
+    data.teacher.bio =
+        document.getElementById("adminBio").value;
+
+    data.hero.subtitle =
+        document.getElementById("adminHero").value;
+
+    data.greeting =
+        document.getElementById("adminGreeting").value;
+
+    data.letter =
+        document.getElementById("adminLetter").value;
+
+    data.final =
+        document.getElementById("adminFinal").value;
+
+    localStorage.setItem(
+        "teacherThankYouData",
+        JSON.stringify(data)
+    );
+
+    applyData();
+
+    showToast("Changes saved.");
+
+}
+
+
+function resetWebsite() {
+
+    if (!confirm("Reset all custom content?")) return;
+
+    data = structuredClone(defaultData);
+
+    localStorage.removeItem("teacherThankYouData");
+
+    applyData();
+
+    showToast("Website reset.");
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+const navbar =
+    document.getElementById("navbar");
+
+window.addEventListener("scroll", () => {
+
+    navbar.classList.toggle(
+        "scrolled",
+        window.scrollY > 30
+    );
+
+});
+
+
+const menuBtn =
+    document.getElementById("menuBtn");
+
+const navLinks =
+    document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+
+    navLinks.classList.toggle("active");
+
+});
+
+
+navLinks.querySelectorAll("a").forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        navLinks.classList.remove("active");
+
+    });
+
+});
+
+
+function scrollToSection(id) {
+
+    document.getElementById(id)
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* =========================================================
+   SCROLL REVEALS
+   ========================================================= */
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("visible");
+
+                    observer.unobserve(entry.target);
+
+                }
+
+            });
+
+        },
+        {
+            threshold: .12
+        }
+    );
+
+
+document.querySelectorAll(".reveal")
+    .forEach(el => observer.observe(el));
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+function openModal(title, text) {
+
+    document.getElementById("modalTitle")
+        .textContent = title;
+
+    document.getElementById("modalText")
+        .textContent = text;
+
+    document.getElementById("modal")
+        .classList.add("active");
+
+}
+
+
+function closeModal() {
+
+    document.getElementById("modal")
+        .classList.remove("active");
+
+}
+
+
+document.getElementById("modal")
+    .addEventListener("click", e => {
+
+        if (e.target.id === "modal") {
+
+            closeModal();
+
+        }
+
+    });
+
+
+document.addEventListener("keydown", e => {
+
+    if (e.key === "Escape") {
+
+        closeModal();
+        closeAdmin();
+
+    }
+
+});
+
+
+/* =========================================================
+   LETTER
+   ========================================================= */
+
+let letterOpened = false;
+
+function openLetter() {
+
+    const envelope =
+        document.getElementById("envelope");
+
+    const button =
+        document.getElementById("letterBtn");
+
+    envelope.classList.toggle("open");
+
+    letterOpened = !letterOpened;
+
+    button.textContent =
+        letterOpened
+        ? "Close The Letter"
+        : "Open The Letter";
+
+}
+
+
+/* =========================================================
+   QUOTES
+   ========================================================= */
+
+const quotes = [
+
+    {
+        text:
+        "The beautiful thing about learning is that nobody can take it away from you.",
+        author:
+        "— B. B. King"
+    },
+
+    {
+        text:
+        "Education is not preparation for life; education is life itself.",
+        author:
+        "— John Dewey"
+    },
+
+    {
+        text:
+        "A good teacher can inspire hope, ignite the imagination, and instill a love of learning.",
+        author:
+        "— Brad Henry"
+    },
+
+    {
+        text:
+        "The mind is not a vessel to be filled, but a fire to be kindled.",
+        author:
+        "— Plutarch"
+    }
+
+];
+
+let quoteIndex = 0;
+
+function nextQuote() {
+
+    const quoteText =
+        document.getElementById("quoteText");
+
+    const quoteAuthor =
+        document.getElementById("quoteAuthor");
+
+    quoteText.style.opacity = "0";
+
+    setTimeout(() => {
+
+        quoteIndex =
+            (quoteIndex + 1) % quotes.length;
+
+        quoteText.textContent =
+            `"${quotes[quoteIndex].text}"`;
+
+        quoteAuthor.textContent =
+            quotes[quoteIndex].author;
+
+        quoteText.style.opacity = "1";
+
+    }, 300);
+
+}
+
+
+/* =========================================================
+   FINAL REVEAL
+   ========================================================= */
+
+function revealFinal() {
+
+    const final =
+        document.getElementById("final");
+
+    const button =
+        document.getElementById("finalButton");
+
+    final.classList.add("revealed");
+
+    button.textContent =
+        "Happy Teachers' Day";
+
+    button.style.opacity = ".5";
+
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 2500);
+
+}
+
+
+/* =========================================================
+   FLOWER CURSOR SCRIPT
+   ========================================================= */
+
+const flowerCursor = document.getElementById("flower-cursor");
+let mouseX = 0, mouseY = 0;
+let cursorX = 0, cursorY = 0;
+let lastTrailTime = 0;
+
+window.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    // Drop trail petals at intervals
+    const now = Date.now();
+    if (now - lastTrailTime > 50) {
+        createTrailPetal(mouseX, mouseY);
+        lastTrailTime = now;
+    }
+});
+
+function renderCursor() {
+    cursorX += (mouseX - cursorX) * 0.2;
+    cursorY += (mouseY - cursorY) * 0.2;
+    flowerCursor.style.left = `${cursorX}px`;
+    flowerCursor.style.top = `${cursorY}px`;
+    requestAnimationFrame(renderCursor);
+}
+requestAnimationFrame(renderCursor);
+
+function createTrailPetal(x, y) {
+    const petal = document.createElement("div");
+    petal.className = "trail-petal";
+    petal.style.left = `${x}px`;
+    petal.style.top = `${y}px`;
+    document.body.appendChild(petal);
+
+    setTimeout(() => {
+        petal.remove();
+    }, 600);
+}
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+applyData();
+
+</script>
+
+</body>
+</html>
